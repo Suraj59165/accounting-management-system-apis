@@ -22,7 +22,6 @@ public class InvoiceItems {
     private int itemTax;
     private int itemFinalPrice;
     @ManyToOne
-
     private Invoice invoice;
 
 

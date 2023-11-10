@@ -17,6 +17,7 @@ import java.util.List;
 public class Invoice {
     @Id
     private String id;
+    @Column(unique = true)
     private int invoiceNumber;
     private LocalDateTime createdAt;
     private String customerName;

@@ -1,5 +1,6 @@
 package com.manage.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.manage.entities.InvoiceItems;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -20,6 +21,7 @@ import java.util.List;
 public class InvoiceDto {
 
     private String id;
+    @Column(unique = true,updatable = false)
     private int invoiceNumber;
     private LocalDateTime createdAt;
     private String customerName;
