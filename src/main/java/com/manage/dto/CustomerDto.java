@@ -15,7 +15,6 @@ public class CustomerDto {
     private String id;
     @NotBlank(message = "customer name is required")
     private String name;
-
     private String email;
     private String phone;
     private String address;

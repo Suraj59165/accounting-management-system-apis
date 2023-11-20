@@ -2,8 +2,10 @@ package com.manage.controllers;
 
 import com.manage.dto.CustomerDto;
 import com.manage.dto.InvoiceDto;
+import com.manage.dto.InvoiceItemsDto;
 import com.manage.payloads.ApiResponse;
 import com.manage.payloads.PageableResponse;
+import com.manage.repositories.InvoiceItemsRepo;
 import com.manage.service.InvoiceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +15,23 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/invoice")
-@CrossOrigin(origins = "*" )
+@CrossOrigin(origins = "*")
 public class InvoiceController {
 
     @Autowired
     private InvoiceService invoiceService;
+    @Autowired
+    private InvoiceItemsRepo invoiceItemsRepo;
 
 
     @PostMapping
-    public ResponseEntity<InvoiceDto> createInvoice( @RequestBody InvoiceDto invoiceDto) {
+    public ResponseEntity<InvoiceDto> createInvoice(@RequestBody InvoiceDto invoiceDto) {
         return new ResponseEntity<>(invoiceService.createInvoice(invoiceDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{invoiceNumber}")
-    public ResponseEntity<InvoiceDto> updateInvoice( @RequestBody InvoiceDto invoiceDto, @PathVariable(value = "invoiceNumber") int invoiceNumber) {
+    public ResponseEntity<InvoiceDto> updateInvoice(@RequestBody InvoiceDto invoiceDto, @PathVariable(value = "invoiceNumber") int invoiceNumber) {
+        System.out.println(invoiceDto);
         return new ResponseEntity<>(invoiceService.updateInvoice(invoiceNumber, invoiceDto), HttpStatus.OK);
     }
 
@@ -57,6 +62,13 @@ public class InvoiceController {
         return new ResponseEntity<>(invoiceService.getCostumerByInvoice(invoiceNumber), HttpStatus.OK);
     }
 
-
-
+    @DeleteMapping("/invoice-item/{invoiceItemId}")
+    public ResponseEntity<ApiResponse> deleteInvoiceItems(@PathVariable String invoiceItemId) {
+        invoiceService.deleteInvoiceItem(invoiceItemId);
+        return new ResponseEntity<>(ApiResponse.builder().response("invoice item deleted successfully").status(true).httpStatus(HttpStatus.ACCEPTED).build(), HttpStatus.OK);
+    }
 }
+
+
+
+

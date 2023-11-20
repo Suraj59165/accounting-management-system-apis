@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
+@CrossOrigin(origins = "*")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<CustomerDto> addCustomer(@Valid @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CustomerDto> addCustomer( @RequestBody CustomerDto customerDto) {
         return new ResponseEntity<>(customerService.createCustomer(customerDto), HttpStatus.CREATED);
     }
 
@@ -42,7 +43,7 @@ public class CustomerController {
 
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<CustomerDto> updateItem(@PathVariable String customerId, @Valid @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable String customerId, @Valid @RequestBody CustomerDto customerDto) {
         return new ResponseEntity<>(customerService.updateCustomer(customerId, customerDto), HttpStatus.OK);
     }
 

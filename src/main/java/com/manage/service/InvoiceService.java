@@ -2,6 +2,7 @@ package com.manage.service;
 
 import com.manage.dto.CustomerDto;
 import com.manage.dto.InvoiceDto;
+import com.manage.dto.InvoiceItemsDto;
 import com.manage.payloads.PageableResponse;
 
 public interface InvoiceService {
@@ -16,6 +17,8 @@ public interface InvoiceService {
     PageableResponse<InvoiceDto> getInvoiceByCustomer(int pageNumber, int pageSize, String sortBy, String sortDirection, String customerId);
 
     CustomerDto getCostumerByInvoice(int invoiceNumber);
+
+    void deleteInvoiceItem(String invoiceItemId);
 
 
 }
