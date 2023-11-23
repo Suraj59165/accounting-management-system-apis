@@ -1,10 +1,11 @@
 package com.manage.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -13,10 +14,10 @@ import lombok.Setter;
 public class ItemsDto {
     private String id;
     private String itemName;
-    private long itemSalesPrice;
-    private int itemOffer;
-    private int itemTax;
-    private long itemFinalPrice;
+    private BigDecimal itemSalesPrice;
+    private BigDecimal itemOffer;
+    private BigDecimal itemTax;
+    private BigDecimal itemFinalPrice;
 
 
 }

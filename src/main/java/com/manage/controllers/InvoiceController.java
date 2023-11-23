@@ -2,12 +2,10 @@ package com.manage.controllers;
 
 import com.manage.dto.CustomerDto;
 import com.manage.dto.InvoiceDto;
-import com.manage.dto.InvoiceItemsDto;
 import com.manage.payloads.ApiResponse;
 import com.manage.payloads.PageableResponse;
 import com.manage.repositories.InvoiceItemsRepo;
 import com.manage.service.InvoiceService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +33,9 @@ public class InvoiceController {
         return new ResponseEntity<>(invoiceService.updateInvoice(invoiceNumber, invoiceDto), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{invoiceNumber}")
-    public ResponseEntity<ApiResponse> deleteInvoice(@PathVariable int invoiceNumber) {
-        invoiceService.deleteInvoice(invoiceNumber);
+    @DeleteMapping("/{invoiceId}")
+    public ResponseEntity<ApiResponse> deleteInvoice(@PathVariable String invoiceId) throws Exception {
+        invoiceService.deleteInvoice(invoiceId);
         return new ResponseEntity<>(ApiResponse.builder().response("invoice deleted successfully").status(true).httpStatus(HttpStatus.ACCEPTED).build(), HttpStatus.OK);
     }
 

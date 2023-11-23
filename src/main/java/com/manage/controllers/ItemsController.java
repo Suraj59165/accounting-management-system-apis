@@ -9,14 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/items")
+@CrossOrigin(origins = "*")
 public class ItemsController {
     @Autowired
     private ItemsService itemsService;
 
     @PostMapping
-    public ResponseEntity<ItemsDto> AddItems(@RequestBody ItemsDto itemsDto) {
+    public ResponseEntity<List<ItemsDto>> AddItems(@RequestBody List<ItemsDto> itemsDto) {
+        System.out.println(itemsDto);
         return new ResponseEntity<>(itemsService.createItem(itemsDto), HttpStatus.CREATED);
     }
 

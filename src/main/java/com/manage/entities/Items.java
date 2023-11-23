@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -16,10 +18,10 @@ public class Items {
     @Id
     private String id;
     private String itemName;
-    private long itemSalesPrice;
-    private int itemOffer;
-    private int itemTax;
-    private long itemFinalPrice;
+    private BigDecimal itemSalesPrice;
+    private BigDecimal itemOffer;
+    private BigDecimal itemTax;
+    private BigDecimal itemFinalPrice;
 
 
 }

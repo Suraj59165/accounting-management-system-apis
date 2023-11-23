@@ -2,13 +2,12 @@ package com.manage.service;
 
 import com.manage.dto.CustomerDto;
 import com.manage.dto.InvoiceDto;
-import com.manage.dto.InvoiceItemsDto;
 import com.manage.payloads.PageableResponse;
 
 public interface InvoiceService {
     InvoiceDto createInvoice(InvoiceDto invoiceDto);
 
-    void deleteInvoice(int invoiceNumber);
+    void deleteInvoice(String invoiceNumber) throws Exception;
 
     InvoiceDto updateInvoice(int invoiceNumber, InvoiceDto newInvoiceData);
 

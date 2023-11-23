@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,9 +25,16 @@ public class ItemsServiceImpl implements ItemsService {
     private ItemsRepo itemsRepo;
 
     @Override
-    public ItemsDto createItem(ItemsDto itemsDto) {
-        itemsDto.setId(UUID.randomUUID().toString());
-        return modelMapper.map(itemsRepo.save(modelMapper.map(itemsDto, Items.class)), ItemsDto.class);
+    public List<ItemsDto> createItem(List<ItemsDto> itemsDto) {
+        List<ItemsDto> itemsDtos = new ArrayList<>();
+        for(ItemsDto itemsDto1:itemsDto)
+        {
+            itemsDto1.setId(UUID.randomUUID().toString());
+            itemsDtos.add(modelMapper.map(itemsRepo.save(modelMapper.map(itemsDto1,Items.class)),ItemsDto.class));
+
+        }
+
+        return itemsDtos;
     }
 
     @Override
@@ -43,7 +52,7 @@ public class ItemsServiceImpl implements ItemsService {
     @Override
     public PageableResponse<ItemsDto> getAllItems(int pageNumber, int pageSize, String sortBy, String sortDirection) {
         System.out.println("running");
-        return Helper.getPageableResponse(itemsRepo.findAll(PageRequest.of(pageNumber, pageSize, sortDirection.equalsIgnoreCase(sortBy) ? Sort.by(sortBy).descending() : Sort.by("asc").ascending())), ItemsDto.class);
+        return Helper.getPageableResponse(itemsRepo.findAll(PageRequest.of(pageNumber, pageSize, sortDirection.equalsIgnoreCase(sortBy) ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending())), ItemsDto.class);
     }
 
     @Override

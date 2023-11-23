@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,9 +20,9 @@ public class Invoice {
     private String id;
     @Column(unique = true)
     private int invoiceNumber;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private String customerName;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "invoice")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "invoice")
     private List<InvoiceItems> invoiceItems;
     private String customerId;
 

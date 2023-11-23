@@ -12,11 +12,11 @@ import com.manage.repositories.CustomerRepo;
 import com.manage.repositories.InvoiceItemsRepo;
 import com.manage.repositories.InvoiceRepo;
 import com.manage.service.InvoiceService;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,11 +48,23 @@ public class InvoiceServiceImpl implements InvoiceService {
         return modelMapper.map(invoiceRepo.save(invoice), InvoiceDto.class);
     }
 
+    @Modifying
     @Override
-    public void deleteInvoice(int invoiceNumber) {
-        invoiceRepo.delete(invoiceRepo.findById(invoiceNumber).orElseThrow(() -> new ResourceNotFoundException("invoice not found with number " + invoiceNumber)));
+    public void deleteInvoice(String invoiceId) throws Exception {
 
+        Invoice invoice = invoiceRepo.findById(invoiceId).get();
+        if (invoice!= null) {
+            for (InvoiceItems invoiceItems1 : invoice.getInvoiceItems()) {
+                invoiceItems1.setInvoice(null);
+            }
+           invoiceRepo.delete(invoice);
+        }
+        else
+        {
+            throw  new Exception("invoice not found");
+        }
     }
+
 
     @Override
     public InvoiceDto updateInvoice(int invoiceNumber, InvoiceDto newInvoiceData) {
@@ -72,10 +84,9 @@ public class InvoiceServiceImpl implements InvoiceService {
             for (int i = 0; i < oldInvoiceItemsList.size(); i++) {
                 InvoiceItems oldInvoiceItems = oldInvoiceItemsList.get(i);
                 InvoiceItemsDto newInvoiceItems = newInvoiceItemsList.get(i);
-
                 oldInvoiceItems.setItemName(newInvoiceItems.getItemName());
-                oldInvoiceItems.setItemQuantity(newInvoiceItems.getItemQuantity());
                 oldInvoiceItems.setItemOffer(newInvoiceItems.getItemOffer());
+                oldInvoiceItems.setItemQuantity(newInvoiceItems.getItemQuantity());
                 oldInvoiceItems.setItemTax(newInvoiceItems.getItemTax());
                 oldInvoiceItems.setItemSalesPrice(newInvoiceItems.getItemSalesPrice());
                 oldInvoiceItems.setItemSalesPrice(newInvoiceItems.getItemSalesPrice());

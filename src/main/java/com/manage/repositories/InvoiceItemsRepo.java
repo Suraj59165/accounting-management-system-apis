@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 @Transactional
-public interface InvoiceItemsRepo extends JpaRepository<InvoiceItems,String> {
+public interface InvoiceItemsRepo extends JpaRepository<InvoiceItems, String> {
     @Modifying
     @Query("delete from InvoiceItems u  where u.id=:id")
-  void  deleteInvoiceItems(@Param("id") String id);
+    void deleteInvoiceItems(@Param("id") String id);
 }
