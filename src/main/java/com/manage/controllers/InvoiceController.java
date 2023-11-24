@@ -29,7 +29,7 @@ public class InvoiceController {
 
     @PutMapping("/{invoiceNumber}")
     public ResponseEntity<InvoiceDto> updateInvoice(@RequestBody InvoiceDto invoiceDto, @PathVariable(value = "invoiceNumber") int invoiceNumber) {
-        System.out.println(invoiceDto);
+
         return new ResponseEntity<>(invoiceService.updateInvoice(invoiceNumber, invoiceDto), HttpStatus.OK);
     }
 

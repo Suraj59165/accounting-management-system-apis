@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/items")
 @CrossOrigin(origins = "*")
@@ -19,14 +17,13 @@ public class ItemsController {
     private ItemsService itemsService;
 
     @PostMapping
-    public ResponseEntity<List<ItemsDto>> AddItems(@RequestBody List<ItemsDto> itemsDto) {
-        System.out.println(itemsDto);
+    public ResponseEntity<ItemsDto> AddItems(@RequestBody ItemsDto itemsDto) {
         return new ResponseEntity<>(itemsService.createItem(itemsDto), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<PageableResponse<ItemsDto>> getAllItems(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-                                                                  @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+                                                                  @RequestParam(value = "pageSize", defaultValue = "100", required = false) int pageSize,
                                                                   @RequestParam(value = "sortBy", defaultValue = "itemName", required = false) String sortBy,
                                                                   @RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection) {
         return new ResponseEntity<>(itemsService.getAllItems(pageNumber, pageSize, sortBy, sortDirection), HttpStatus.ACCEPTED);

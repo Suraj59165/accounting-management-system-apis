@@ -53,15 +53,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     public void deleteInvoice(String invoiceId) throws Exception {
 
         Invoice invoice = invoiceRepo.findById(invoiceId).get();
-        if (invoice!= null) {
+        if (invoice != null) {
             for (InvoiceItems invoiceItems1 : invoice.getInvoiceItems()) {
                 invoiceItems1.setInvoice(null);
             }
-           invoiceRepo.delete(invoice);
-        }
-        else
-        {
-            throw  new Exception("invoice not found");
+            invoiceRepo.delete(invoice);
+        } else {
+            throw new Exception("invoice not found");
         }
     }
 

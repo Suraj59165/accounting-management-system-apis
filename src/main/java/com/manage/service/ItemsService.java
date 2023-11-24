@@ -3,11 +3,9 @@ package com.manage.service;
 import com.manage.dto.ItemsDto;
 import com.manage.payloads.PageableResponse;
 
-import java.util.List;
-
 public interface ItemsService {
 
-    List<ItemsDto> createItem(List<ItemsDto> itemsDto);
+    ItemsDto createItem(ItemsDto itemsDto);
 
 
     ItemsDto getItemById(String itemId);
